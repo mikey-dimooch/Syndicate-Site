@@ -1,135 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
+{% include 'navbar.html' %} 
 {% load static %}
+<link rel="stylesheet" href="{% static 'style.css' %}"> 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Syndicate</title>
-    <style>
-        /* a lot of this css code was stolen from my software engineering project and modified to work here lol */
-            body {
-                background-color: #ffffff;
-                font-family: Georgia, serif;
-                margin: 0;
-                padding: 0;
-            }
-
-            nav {
-                display: flex;
-                justify-content: space-between; /* Space between left and right sections */
-                align-items: center;
-                background-color: #000000;
-                padding: 0.5em 1em; /* Add horizontal padding */
-            }
-
-            .nav-left {
-                display: flex;
-                align-items: center; /* Vertically align the logo and links */
-            }
-
-            .nav-right {
-                display: flex;
-                align-items: center; /* Vertically align the admin link */
-            }
-
-            nav a {
-                color: #fff;
-                text-decoration: none;
-                margin: 0 1em;
-            }
-
-            .navbar-logo {
-                width: 80px; /* Adjust width as needed */
-                height: auto; /* Maintain aspect ratio */
-                margin-right: 1em; /* Space between the logo and other links */
-            }
-
-            .admin-link {
-                margin-left: auto; /* Push the admin link to the far right */
-                margin-right: 0; /* Ensure no right margin */
-            }
-    
-            /* main content styling */
-            .main-content {
-                display: flex;
-                flex-direction: column; /* Stack images vertically */
-                align-items: center; /* Center images horizontally */
-                gap: 1em; /* Add vertical space between images */
-                padding: 2em; /* Padding around the content */
-            }
-
-            .top-image {
-                width: 40%; /* Smaller width for the top image */
-                max-width: 100%; /* Ensure the image doesn't exceed its container */
-                height: auto; /* Maintain the aspect ratio */
-                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional shadow */
-                border-radius: 8px; /* Optional: Round corners */
-            }
-
-            .caption {
-                font-size: 1.2em; /* Adjust the font size as needed */
-                text-align: center; /* Center-align the text */
-                color: #333; /* Change to a suitable color */
-                margin: 0.5em 0; /* Adjust the margin for spacing */
-            }
-
-            .bottom-image {
-                width: 75%; /* Larger width for the bottom image */
-                max-width: 100%; /* Ensure the image doesn't exceed its container */
-                height: auto; /* Maintain the aspect ratio */
-                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional shadow */
-                border-radius: 8px; /* Optional: Round corners */
-            }
-
-            /* Media query to adjust images for smaller screens */
-            @media (max-width: 768px) {
-                .large-image {
-                    width: 100%; /* Full width on smaller screens */
-                }
-            }
-
-            /* footer styling */
-            .container {
-                padding: 2em;
-            }
-        
-            footer {
-                text-align: center;
-                padding: 1em;
-                background-color: #000000;
-                color: #fff;
-                position: bottom;
-                width: 100%;
-                bottom: 0;
-        }
-    </style>
-    
     
 </head>
 
 <body>
-    
-    <nav>
-        <div class="nav-left">
-            <a href="#home">
-                <img class="navbar-logo" src="{% static 'logo_black.PNG' %}" alt="Syndicate Logo">
-            </a>
-            <a href="#band">Band</a>
-            <a href="#media">Music</a>
-            <a href="#contact">Contact</a>
-        </div>
-        <div class="nav-right">
-            <a href="/admin/" class="admin-link">Admin</a>
-        </div>
-    </nav>
-    
-    
-    
-    
     <div class="main-content">
         <img class="top-image" src="{% static 'logo_red.PNG' %}" alt="Red Syndicate Logo">
     
-        <p class="caption">Classic-era Thrash Metal from Tampa, Florida. Est. 2024</p>
+        <p class="caption">Classic-era inspired Thrash Metal from Tampa, Florida. Est. 2024</p>
     
         <img class="bottom-image" src="{% static 'fullbandfactory_color.jpg' %}" alt="Full Band Photo Color">
     </div>

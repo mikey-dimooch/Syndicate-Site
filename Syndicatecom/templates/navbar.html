@@ -1,0 +1,17 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'style.css' %}">
+<nav>
+    <div class="nav-left">
+        <a href="{% url 'home' %}">
+            <img class="navbar-logo" src="{% static 'logo_black.PNG' %}" alt="Syndicate Logo">
+        </a>
+        <a href="{% url 'tour' %}">Tour</a>
+        <a href="{% url 'band' %}">Band</a>
+        <a href="{% url 'music' %}">Music</a>
+        <a href="{% url 'merch' %}">Merch</a>
+        <a href="{% url 'contact' %}">Contact</a>
+    </div>
+    <div class="nav-right">
+        <a href="/admin/" class="admin-link">Admin</a>
+    </div>
+</nav>

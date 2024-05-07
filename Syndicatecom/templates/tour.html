@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+{% include 'navbar.html' %} 
+{% load static %}
+<link rel="stylesheet" href="{% static 'style.css' %}"> 
+
+<style>
+    .tour-header {
+        background-image: url('{% static "fullband_plantstock.jpeg" %}'); /* Adjust with your actual image path */
+        background-size: cover; /* Cover ensures the background image fully covers the div */
+        background-position: top; /* Centers the image in the div */
+        height: 300px; /* Set the height of the header */
+        display: flex;
+        justify-content: center; /* Center the text horizontally */
+        align-items: center; /* Center the text vertically */
+        color: white; /* Set the color of the header text */
+        text-shadow: 2px 2px 8px rgba(0,0,0,0.5); /* Optional: Adds shadow to the text for better readability */
+    }   
+
+    .tour-title {
+        font-size: 3em; /* Adjust the size of the title */
+        margin: 0; /* Remove any default margin */
+    }
+</style>
+
+<div class="tour-header">
+    <h1 class="tour-title">Tour</h1>
+</div>
+
+<section class="upcoming-shows">
+    <h2>Upcoming Shows</h2>
+    <div class="shows-container">
+    {% if upcoming_shows %}
+        {% for show in upcoming_shows %}
+            <div class="show-item">
+                {{ show.date|date:"M d, Y g:i A" }} - {{ show.venue }}, {{ show.city }}
+                {% if show.flyer %}
+                    <a href="{{ show.flyer.url }}" target="_blank">
+                        <img src="{{ show.flyer.url }}" alt="Flyer for {{ show.venue }}" class="show-flyer">
+                    </a>
+                {% endif %}
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>No upcoming shows at the moment. Follow our Instagram @syndicate.fl for updates!</p>
+    {% endif %}
+    </div>
+</section>
+
+<section class="past-shows">
+    <h2>Past Shows</h2>
+    <div class="shows-container">
+    {% if past_shows %}
+        {% for show in past_shows %}
+            <div class="show-item">
+                {{ show.date|date:"M d, Y g:i A" }} - {{ show.venue }}, {{ show.city }}
+                {% if show.flyer %}
+                    <a href="{{ show.flyer.url }}" target="_blank">
+                        <img src="{{ show.flyer.url }}" alt="Flyer for {{ show.venue }}" class="show-flyer">
+                    </a>
+                {% endif %}
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>No past shows to display.</p>
+    {% endif %}
+    </div>
+</section>
+
+<footer>
+    <p>&copy; 2024 Syndicate. All Rights Reserved.</p>
+</footer>
