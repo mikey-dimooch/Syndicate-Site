@@ -3,6 +3,15 @@
 {% include 'navbar.html' %} 
 {% load static %}
 <link rel="stylesheet" href="{% static 'style.css' %}"> 
+<head>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
 
 <style>
     .tour-header {
@@ -29,22 +38,46 @@
 
 <section class="upcoming-shows">
     <h2>Upcoming Shows</h2>
-    <div class="shows-container">
     {% if upcoming_shows %}
+        <ul>
         {% for show in upcoming_shows %}
-            <div class="show-item">
-                {{ show.date|date:"M d, Y g:i A" }} - {{ show.venue }}, {{ show.city }}
-                {% if show.flyer %}
-                    <a href="{{ show.flyer.url }}" target="_blank">
-                        <img src="{{ show.flyer.url }}" alt="Flyer for {{ show.venue }}" class="show-flyer">
-                    </a>
-                {% endif %}
-            </div>
+            <li>
+                <a href="#" data-toggle="modal" data-target="#modal{{ show.id }}">
+                    {{ show.date|date:"M d, Y g:i A" }} - {{ show.venue }}, {{ show.city }}
+                </a>
+
+                <!-- Modal -->
+                <div class="modal fade" id="modal{{ show.id }}" tabindex="-1" role="dialog" aria-labelledby="showModalLabel{{ show.id }}" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="showModalLabel{{ show.id }}">{{ show.venue }} - {{ show.date|date:"M d, Y g:i A" }}</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <p><strong>Venue:</strong> {{ show.venue }}</p>
+                                <p><strong>City:</strong> {{ show.city }}</p>
+                                <p><strong>Address:</strong> {{ show.address }}</p>
+                                <p><strong>Date:</strong> {{ show.date|date:"M d, Y g:i A" }}</p>
+                                <p><strong>Description:</strong> {{ show.description }}</p>
+                                {% if show.flyer %}
+                                    <img src="{{ show.flyer.url }}" alt="Flyer for {{ show.venue }}" class="img-fluid">
+                                {% endif %}
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
         {% endfor %}
+        </ul>
     {% else %}
         <p>No upcoming shows at the moment. Follow our Instagram @syndicate.fl for updates!</p>
     {% endif %}
-    </div>
 </section>
 
 <section class="past-shows">
@@ -54,11 +87,6 @@
         {% for show in past_shows %}
             <div class="show-item">
                 {{ show.date|date:"M d, Y g:i A" }} - {{ show.venue }}, {{ show.city }}
-                {% if show.flyer %}
-                    <a href="{{ show.flyer.url }}" target="_blank">
-                        <img src="{{ show.flyer.url }}" alt="Flyer for {{ show.venue }}" class="show-flyer">
-                    </a>
-                {% endif %}
             </div>
         {% endfor %}
     {% else %}

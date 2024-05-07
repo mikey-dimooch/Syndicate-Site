@@ -116,6 +116,11 @@ h2 {
     flex-grow: 1; /* Optional: Allows items to grow to fill additional space */
 }
 
+.img-fluid {
+    max-width: 100%;
+    height: auto;
+}
+
 
 .show-flyer {
     width: 100%; /* Adjust this as needed to fit your design */
@@ -124,6 +129,7 @@ h2 {
     display: block; /* Ensures that the image does not inline */
     margin: 10px auto; /* Centers the image and provides some spacing from the text */
 }
+
 
 @media (max-width: 100px) {
     .shows-container {

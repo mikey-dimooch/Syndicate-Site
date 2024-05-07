@@ -5,6 +5,7 @@ class Show(models.Model):
     date = models.DateTimeField()
     venue = models.CharField(max_length=100)
     city = models.CharField(max_length=100)
+    address = models.CharField(max_length=255)  # Added address field
     description = models.TextField(blank=True, null=True)
     flyer = models.ImageField(upload_to='flyers/', blank=True, null=True)
 
