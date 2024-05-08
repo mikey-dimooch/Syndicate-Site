@@ -14,3 +14,5 @@ class Show(models.Model):
 
     def __str__(self):
         return f"{self.venue} - {self.city} on {self.date.strftime('%Y-%m-%d')}"
+
+

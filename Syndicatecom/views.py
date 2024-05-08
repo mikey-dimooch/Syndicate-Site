@@ -2,7 +2,6 @@ from django.shortcuts import render
 from .models import Show
 from django.utils import timezone
 
-
 # Create your views here.
 def home(request):
     return render(request, "home.html")
@@ -31,3 +30,4 @@ def tour(request):
         'upcoming_shows': upcoming_shows,
         'past_shows': past_shows
     })
+

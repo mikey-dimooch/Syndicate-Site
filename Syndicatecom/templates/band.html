@@ -1,11 +1,99 @@
-{% include 'navbar.html' %} 
-{% load static %} 
-<link rel="stylesheet" href="{% static 'style.css' %}"> 
-<title>Band</title> 
-                  
-<p>Meet the Band</p> 
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Band</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <style>
+        .band-header {
+            background-image: url('{% static "fullbandfactory_stairs.jpg" %}');
+            background-size: cover;
+            background-position: top;
+            height: 450px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
+        }
+        .band-title {
+            font-size: 3em;
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    {% include 'navbar.html' %}
+    <div class="band-header">
+        <h1 class="band-title">The Band</h1>
+    </div>
 
+    <div class="container">
+        <div class="band-intro">
+            <p class="description">Description of the band, their history, achievements, etc.</p>
+        </div>
 
+        <!-- Row for two members -->
+        <div class="member-row">
+            <!-- Band Member 1 -->
+            <div class="member">
+                <img src="{% static 'mike1.jpg' %}" alt="Mike Dimucci" class="member-photo">
+                <div class="member-info">
+                    <h3>Mike Dimucci Jr.</h3>
+                    <h4>Rhythm Guitar/Vocals</h4>
+                    <p>
+                        Hailing from Barrington, Illinois, Mikey picked up guitar around April of 2020 during the peak of COVID lockdowns. Once the lockdowns were lifted, 
+                        Mikey joined his high school's jazz band as a novice guitarist, but always had more of an enjoyment for heavier music. Inspired by guitarists like 
+                        James Hetfield, Dave Mustaine, and Matt Heafy, and bands such as Testament and Black Sabbath, Mikey co-founded Syndicate in 2024 after moving to 
+                        Tampa in August of 2022.
+                    </p>
+                </div>
+            </div>
 
+            <!-- Band Member 2 -->
+            <div class="member">
+                <img src="{% static 'kesler1.jpg' %}" alt="Kesler Hoffman" class="member-photo">
+                <div class="member-info">
+                    <h3>Kesler Hoffman</h3>
+                    <h4>Lead Guitar</h4>
+                    <p>
+                        Kesler is a Florida native, he started playing music on a bass he inherited from my grandpa, and first song he learned being Anesthesia (Pulling Teeth). 
+                        He then picked up electric guitar and joined percussion in school around the same time to broaden his horizons. He's been playing for about 6 years now 
+                        and is excited to finally be involved a band.
+                    </p>
+                </div>
+            </div>
+        </div>
 
-{% include 'footer.html' %}
+        <!-- Row for two more members -->
+        <div class="member-row">
+            <!-- Band Member 3 -->
+            <div class="member">
+                <img src="{% static 'colin1.jpg' %}" alt="Colin White" class="member-photo">
+                <div class="member-info">
+                    <h3>Colin White</h3>
+                    <h4>Bass Guitar</h4>
+                    <p>Description...</p>
+                </div>
+            </div>
+
+            <!-- Band Member 4 -->
+            <div class="member">
+                <img src="{% static 'andrew1.jpg' %}" alt="Andrew Powell" class="member-photo">
+                <div class="member-info">
+                    <h3>Andrew Powell</h3>
+                    <h4>Drums</h4>
+                    <p>
+                        Growing up in Raleigh, North Carolina, Andrew began playing drums at six years old, inspired by classic rock drummers Neil Peart and John Bonham. 
+                        In high school, Andrew began playing heavier songs by bands such as Slayer and Metallica, majorly looking up to Dave Lombardo. He joined local thrash 
+                        band Deceptor until moving to Tampa in 2022. Now most previously of alt metal band NONPERSONA, Andrew co-founded Syndicate in 2024.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% include 'footer.html' %}
+</body>
+</html>
