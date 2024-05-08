@@ -19,10 +19,6 @@ nav {
     align-items: center; /* Vertically align the logo and links */
 }
 
-.nav-right {
-    display: flex;
-    align-items: center; /* Vertically align the admin link */
-}
 
 nav a {
     color: #fff;
@@ -34,11 +30,6 @@ nav a {
     width: 80px; /* Adjust width as needed */
     height: auto; /* Maintain aspect ratio */
     margin-right: 1em; /* Space between the logo and other links */
-}
-
-.admin-link {
-    margin-left: auto; /* Push the admin link to the far right */
-    margin-right: 0; /* Ensure no right margin */
 }
 
 /* home page styling */

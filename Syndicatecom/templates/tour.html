@@ -18,7 +18,7 @@
         background-image: url('{% static "fullband_plantstock.jpeg" %}'); /* Adjust with your actual image path */
         background-size: cover; /* Cover ensures the background image fully covers the div */
         background-position: top; /* Centers the image in the div */
-        height: 300px; /* Set the height of the header */
+        height: 450px; /* Set the height of the header */
         display: flex;
         justify-content: center; /* Center the text horizontally */
         align-items: center; /* Center the text vertically */
@@ -83,18 +83,17 @@
 <section class="past-shows">
     <h2>Past Shows</h2>
     <div class="shows-container">
-    {% if past_shows %}
-        {% for show in past_shows %}
-            <div class="show-item">
-                {{ show.date|date:"M d, Y g:i A" }} - {{ show.venue }}, {{ show.city }}
-            </div>
-        {% endfor %}
-    {% else %}
-        <p>No past shows to display.</p>
-    {% endif %}
+        {% if past_shows %}
+            {% for show in past_shows %}
+                <div class="show-item">
+                    <!-- Format the date to show only "Month day, Year" -->
+                    {{ show.date|date:"M d, Y" }} - {{ show.venue }}, {{ show.city }}
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>No past shows to display.</p>
+        {% endif %}
     </div>
 </section>
 
-<footer>
-    <p>&copy; 2024 Syndicate. All Rights Reserved.</p>
-</footer>
+{% include 'footer.html' %}
