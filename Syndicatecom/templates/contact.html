@@ -1,26 +1,110 @@
 <!DOCTYPE html>
 <html lang="en">
+{% include 'navbar.html' %} 
 {% load static %}
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Band</title>
+    <title>Contact</title>
     <link rel="stylesheet" href="{% static 'style.css' %}">
     <style>
         .band-header {
-            background-image: url('{% static "fullbandfactory_stairs.jpg" %}');
+            background-image: url('{% static "fullbandawning_bw.jpg" %}');
             background-size: cover;
-            background-position: top;
+            background-position: center;
             height: 450px;
+            width: 100%;
             display: flex;
             justify-content: center;
             align-items: center;
             color: white;
             text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
         }
+
         .band-title {
             font-size: 3em;
             margin: 0;
         }
+
+        /* Form container styling */
+        .container {
+            width: 80%;
+            max-width: 500px; /* Set a max-width for the form */
+            background: #fff;
+            padding: 20px;
+            margin: auto;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        form {
+            width: 100%; /* Ensures form elements use the full width of the container */
+        }
+
+        /* Input and button styling */
+        input[type="text"], input[type="email"], textarea, button {
+            width: 100%; /* Full width for better control */
+            padding: 10px;
+            margin-top: 6px;
+            margin-bottom: 16px;
+            border-radius: 4px;
+        }
+
+        button {
+            background-color: #ff0000; /* Green, consider your theme */
+            color: white;
+            padding: 10px;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #a04545; /* Darker green on hover */
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                width: 100%;
+                padding: 10px;
+            }
+        }
+        ul.messages {
+        padding: 10px;
+        color: green; /* Or any color fitting your site's theme */
+        background: #b8f2e6; /* Light green background for success messages */
+        border: 1px solid green;
+        border-radius: 5px;
+        margin-bottom: 20px;
+    }
+
+        /* footer styling */
+        .container {
+            padding: 2em;
+        }
     </style>
 </head>
+
+<body>
+    <div class="band-header">
+        <h1 class="band-title">Contact Us</h1>
+    </div>
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    <div class="container">
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Send</button>
+        </form>
+    </div>
+    {% include 'footer.html' %}
+</body>
+</html>

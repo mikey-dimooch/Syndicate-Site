@@ -3,6 +3,69 @@
 {% include 'navbar.html' %} 
 {% load static %}
 <link rel="stylesheet" href="{% static 'style.css' %}"> 
+<style>
+    .upcoming-shows, .past-shows {
+    text-align: center;
+    margin: 20px auto;
+    width: 80%; /* Adjust based on your design preference */
+}
+
+.upcoming-shows ul, .past-shows ul {
+    list-style: none;
+    padding: 0;
+}
+
+.upcoming-shows li, .past-shows li {
+    background-color: #f0f0f0;
+    padding: 10px;
+    margin: 5px 0;
+    border-radius: 5px;
+}
+
+h2 {
+    color: #333;
+}
+
+.shows-container {
+    display: flex;
+    flex-wrap: wrap; /* Allows items to wrap onto the next line as needed */
+    justify-content: space-around; /* Distributes space around items for even spacing */
+    align-items: center; /* Vertically centers the items in the container */
+}
+
+.show-item {
+    margin: 10px; /* Adds some space around each item */
+    flex-grow: 1; /* Optional: Allows items to grow to fill additional space */
+}
+
+.img-fluid {
+    max-width: 100%;
+    height: auto;
+}
+
+
+.show-flyer {
+    width: 100%; /* Adjust this as needed to fit your design */
+    max-width: 300px; /* Keeps the image manageable and scales down on smaller screens */
+    height: auto; /* Maintains aspect ratio */
+    display: block; /* Ensures that the image does not inline */
+    margin: 10px auto; /* Centers the image and provides some spacing from the text */
+}
+
+
+@media (max-width: 100px) {
+    .shows-container {
+        flex-direction: column; /* Stacks items vertically on small screens */
+    }
+}
+
+
+@media (max-width: 300px) {
+    .upcoming-shows, .past-shows {
+        width: 55%;
+    }
+}
+</style>
 <head>
     <!-- Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
@@ -76,7 +139,7 @@
         {% endfor %}
         </ul>
     {% else %}
-        <p>No upcoming shows at the moment. Follow our Instagram @syndicate.fl for updates!</p>
+        <p>No upcoming events at the moment. Follow our Instagram @syndicate.fl for updates!</p>
     {% endif %}
 </section>
 
