@@ -1,6 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import Show
 from django.utils import timezone
+from django.core.mail import send_mail
 
 # Create your views here.
 def home(request):
@@ -19,7 +20,26 @@ def merch(request):
     return render(request, 'merch.html')
 
 def contact(request):
-    return render(request, 'contact.html')
+    if request.method == "POST":
+        name = request.POST['name']
+        email = request.POST['email']
+        message = request.POST['message']
+
+        # Construct the email body
+        email_body = f"Message from {name} ({email}):\n\n{message}"
+
+        # send an email
+        send_mail(
+            'New Message From ' + name, # subject
+            email_body, # message
+            email, # from email (who's filling out the form)
+            ['syndicatethrash@gmail.com'], # to email (band email)
+        )
+
+
+        return render(request, 'contact.html', {'name':name})
+    else:
+        return render(request, 'contact.html')
 
 
 def tour(request):

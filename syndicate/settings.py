@@ -29,7 +29,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -132,3 +131,13 @@ STATICFILES_DIRS = [
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# myaccount.google.com/apppasswords
+# make sure 2fa is on on the gmail account you're using!
+# Email Settings
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'syndicateflnoreply@gmail.com'
+EMAIL_HOST_PASSWORD = 'bkng usjb aoou sibj'
+EMAIL_USE_TLS = True
+# EMAIL_USE_SSL = False
