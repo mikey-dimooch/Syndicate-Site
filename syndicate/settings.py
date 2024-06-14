@@ -122,8 +122,9 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
-    BASE_DIR / 'static',
+    os.path.join(BASE_DIR, 'static'),
 ]
+
 
 
 
@@ -138,6 +139,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'syndicateflnoreply@gmail.com'
-EMAIL_HOST_PASSWORD = 'bkng usjb aoou sibj'
+EMAIL_HOST_PASSWORD = 'svgh viof rqek oszc'
 EMAIL_USE_TLS = True
 # EMAIL_USE_SSL = False

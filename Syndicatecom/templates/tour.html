@@ -1,162 +1,181 @@
 <!DOCTYPE html>
 <html lang="en">
-{% include 'navbar.html' %} 
-{% load static %}
-<link rel="stylesheet" href="{% static 'style.css' %}"> 
-<style>
-    .upcoming-shows, .past-shows {
-    text-align: center;
-    margin: 20px auto;
-    width: 80%; /* Adjust based on your design preference */
-}
-
-.upcoming-shows ul, .past-shows ul {
-    list-style: none;
-    padding: 0;
-}
-
-.upcoming-shows li, .past-shows li {
-    background-color: #f0f0f0;
-    padding: 10px;
-    margin: 5px 0;
-    border-radius: 5px;
-}
-
-h2 {
-    color: #333;
-}
-
-.shows-container {
-    display: flex;
-    flex-wrap: wrap; /* Allows items to wrap onto the next line as needed */
-    justify-content: space-around; /* Distributes space around items for even spacing */
-    align-items: center; /* Vertically centers the items in the container */
-}
-
-.show-item {
-    margin: 10px; /* Adds some space around each item */
-    flex-grow: 1; /* Optional: Allows items to grow to fill additional space */
-}
-
-.img-fluid {
-    max-width: 100%;
-    height: auto;
-}
-
-
-.show-flyer {
-    width: 100%; /* Adjust this as needed to fit your design */
-    max-width: 300px; /* Keeps the image manageable and scales down on smaller screens */
-    height: auto; /* Maintains aspect ratio */
-    display: block; /* Ensures that the image does not inline */
-    margin: 10px auto; /* Centers the image and provides some spacing from the text */
-}
-
-
-@media (max-width: 100px) {
-    .shows-container {
-        flex-direction: column; /* Stacks items vertically on small screens */
-    }
-}
-
-
-@media (max-width: 300px) {
-    .upcoming-shows, .past-shows {
-        width: 55%;
-    }
-}
-</style>
 <head>
-    <!-- Bootstrap CSS -->
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'style.css' %}">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Bootstrap JS and dependencies -->
+    <style>
+        .tour-header {
+            background-image: url('{% static "fullband_plantstock.jpeg" %}');
+            background-size: cover;
+            background-position: top;
+            height: 450px;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
+        }
+    
+        .upcoming-shows, .past-shows {
+            text-align: center;
+            margin: 20px auto;
+            width: 80%;
+        }
+    
+        .upcoming-shows ul, .past-shows ul {
+            list-style: none;
+            padding: 0;
+        }
+    
+        .upcoming-shows li, .past-shows li {
+            background-color: #f0f0f0;
+            padding: 10px;
+            margin: 5px 0;
+            border-radius: 5px;
+        }
+    
+        h2 {
+            color: #333;
+        }
+    
+        .shows-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            align-items: center;
+        }
+    
+        .show-item {
+            margin: 10px;
+            flex-grow: 1;
+        }
+    
+        /* Modal specific styles */
+        .modal-content {
+            padding: 20px;
+            line-height: 1.5; /* Improves readability */
+        }
+    
+        .modal-header h5 {
+            font-size: 1.25rem; /* Enhances title visibility */
+        }
+    
+        .modal-body p {
+            margin-bottom: 10px; /* Adds spacing for clarity */
+        }
+    
+        .modal-footer {
+            padding-top: 10px;
+            justify-content: flex-end; /* Aligns buttons to the right */
+        }
+    
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .shows-container {
+                flex-direction: column;
+            }
+    
+            .upcoming-shows, .past-shows {
+                width: 95%;
+            }
+        }
+    </style>
+    
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <title>Music</title>
 </head>
-
-<style>
-    .tour-header {
-        background-image: url('{% static "fullband_plantstock.jpeg" %}'); /* Adjust with your actual image path */
-        background-size: cover; /* Cover ensures the background image fully covers the div */
-        background-position: top; /* Centers the image in the div */
-        height: 450px; /* Set the height of the header */
-        display: flex;
-        justify-content: center; /* Center the text horizontally */
-        align-items: center; /* Center the text vertically */
-        color: white; /* Set the color of the header text */
-        text-shadow: 2px 2px 8px rgba(0,0,0,0.5); /* Optional: Adds shadow to the text for better readability */
-    }   
-
-    .tour-title {
-        font-size: 3em; /* Adjust the size of the title */
-        margin: 0; /* Remove any default margin */
-    }
-</style>
-
-<div class="tour-header">
-    <h1 class="tour-title">Tour</h1>
-</div>
-
-<section class="upcoming-shows">
-    <h2>Upcoming Shows</h2>
-    {% if upcoming_shows %}
-        <ul>
-        {% for show in upcoming_shows %}
-            <li>
-                <a href="#" data-toggle="modal" data-target="#modal{{ show.id }}">
-                    {{ show.date|date:"M d, Y g:i A" }} - {{ show.venue }}, {{ show.city }}
-                </a>
-
-                <!-- Modal -->
-                <div class="modal fade" id="modal{{ show.id }}" tabindex="-1" role="dialog" aria-labelledby="showModalLabel{{ show.id }}" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="showModalLabel{{ show.id }}">{{ show.venue }} - {{ show.date|date:"M d, Y g:i A" }}</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <p><strong>Venue:</strong> {{ show.venue }}</p>
-                                <p><strong>City:</strong> {{ show.city }}</p>
-                                <p><strong>Address:</strong> {{ show.address }}</p>
-                                <p><strong>Date:</strong> {{ show.date|date:"M d, Y g:i A" }}</p>
-                                <p><strong>Description:</strong> {{ show.description }}</p>
-                                {% if show.flyer %}
-                                    <img src="{{ show.flyer.url }}" alt="Flyer for {{ show.venue }}" class="img-fluid">
-                                {% endif %}
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+<body>
+    {% include 'navbar.html' %}
+    <div class="tour-header">
+        <h1 class="tour-title">Tour</h1>
+    </div>
+    <section class="upcoming-shows">
+        <h2>Upcoming Shows</h2>
+        {% if upcoming_shows %}
+            <ul>
+            {% for show in upcoming_shows %}
+                <li>
+                    <a href="#" data-toggle="modal" data-target="#modal{{ show.id }}">
+                        {{ show.date|date:"M d, Y" }} - {{ show.event_name }} -  {{ show.venue }} - {{ show.city }}, {{ show.state }}
+                    </a>
+                    <!-- Modal -->
+                    <div class="modal fade" id="modal{{ show.id }}" tabindex="-1" role="dialog" aria-labelledby="showModalLabel{{ show.id }}" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="showModalLabel{{ show.id }}">
+                                        {{ show.event_name }}
+                                    </h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class::="modal-body">
+                                    <p> {{ show.date|date:"M d, Y @ g:i A" }}</p>
+                                    <p> {{ show.venue }}, {{ show.city }}, {{ show.state }}</p>
+                                    <p> {{ show.description }}</p>
+                                    {% if show.ticket_link %}
+                                        <p><a href="{{ show.ticket_link }}" target="_blank">Buy Tickets</a></p>
+                                    {% endif %}
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </li>
-        {% endfor %}
-        </ul>
-    {% else %}
-        <p>No upcoming events at the moment. Follow our Instagram @syndicate.fl for updates!</p>
-    {% endif %}
-</section>
-
-<section class="past-shows">
-    <h2>Past Shows</h2>
-    <div class="shows-container">
-        {% if past_shows %}
-            {% for show in past_shows %}
-                <div class="show-item">
-                    <!-- Format the date to show only "Month day, Year" -->
-                    {{ show.date|date:"M d, Y" }} - {{ show.venue }}, {{ show.city }}
-                </div>
+                </li>
             {% endfor %}
+            </ul>
         {% else %}
-            <p>No past shows to display.</p>
+            <p>No upcoming events at the moment. Follow our Instagram @syndicate.fl for updates!</p>
         {% endif %}
-    </div>
-</section>
+    </section>
+    
+        
+    <section class="past-shows">
+        <h2>Past Shows</h2>
+        <div class="shows-container">
+            {% if past_shows %}
+                {% for show in past_shows %}
+                    <div class="show-item">
+                        <p>{{ show.date|date:"M d, Y" }} - {{ show.event_name }}, {{ show.city }}</p>
+                        <button type="button" data-toggle="modal" data-target="#setlistModal{{ show.id }}">View Setlist</button>
+                        
+                        <!-- Setlist Modal -->
+                        <div class="modal fade" id="setlistModal{{ show.id }}" tabindex="-1" role="dialog" aria-labelledby="setlistModalLabel{{ show.id }}" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="setlistModalLabel{{ show.id }}">Setlist for {{ show.event_name }}</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        {% if show.setlist %}
+                                            {% for song in show.setlist.splitlines %}
+                                                <p>{{ song }}</p>
+                                            {% endfor %}
+                                        {% else %}
+                                            <p>No setlist available.</p>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p>No past shows to display.</p>
+            {% endif %}
+        </div>
+    </section>
 
-{% include 'footer.html' %}
+    {% include 'footer.html' %}
+</body>
+</html>

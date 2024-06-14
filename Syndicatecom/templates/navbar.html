@@ -2,30 +2,29 @@
 <link rel="stylesheet" href="{% static 'style.css' %}">
 <style>
     nav {
-    display: flex;
-    justify-content: space-between; /* Space between left and right sections */
-    align-items: center;
-    background-color: #000000;
-    padding: 0.5em 1em; /* Add horizontal padding */
-}
+        display: flex;
+        justify-content: space-between; /* Space between left and right sections */
+        align-items: center;
+        background-color: #000000;
+        padding: 0.5em 1em; /* Add horizontal padding */
+    }
 
-.nav-left {
-    display: flex;
-    align-items: center; /* Vertically align the logo and links */
-}
+    .nav-left {
+        display: flex;
+        align-items: center; /* Vertically align the logo and links */
+    }
 
+    nav a {
+        color: #fff;
+        text-decoration: none;
+        margin: 0 1em;
+    }
 
-nav a {
-    color: #fff;
-    text-decoration: none;
-    margin: 0 1em;
-}
-
-.navbar-logo {
-    width: 80px; /* Adjust width as needed */
-    height: auto; /* Maintain aspect ratio */
-    margin-right: 1em; /* Space between the logo and other links */
-}
+    .navbar-logo {
+        width: 80px; /* Adjust width as needed */
+        height: auto; /* Maintain aspect ratio */
+        margin-right: 1em; /* Space between the logo and other links */
+    }
 </style>
 <nav>
     <div class="nav-left">
@@ -37,8 +36,5 @@ nav a {
         <a href="{% url 'music' %}">Music</a>
         <a href="{% url 'merch' %}">Merch</a>
         <a href="{% url 'contact' %}">Contact</a>
-    </div>
-    <div class="nav-right">
-        <a href="/admin/" class="admin-link">Admin</a>
     </div>
 </nav>

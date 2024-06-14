@@ -1,9 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
-{% include 'navbar.html' %} 
-{% load static %}
-<link rel="stylesheet" href="{% static 'style.css' %}"> 
+<head>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <title>Music</title>
+    <style>
+        .band-header {
+            background-image: url('{% static "fullbandawning_bw.jpg" %}');
+            background-size: cover;
+            background-position: center;
+            height: 450px;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
+        }
 
-
-
+        .band-title {
+            font-size: 3em;
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    {% include 'navbar.html' %}
+    <div class="band-header">
+        <h1 class="band-title">Music</h1>
+    </div>
+    
 {% include 'footer.html' %}
+</body>
+</html>

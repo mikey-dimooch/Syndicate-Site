@@ -1,4 +1,4 @@
-/* a lot of this css code was stolen from my software engineering project and modified to work here lol */
+/* i think all of this css code was stolen from my software engineering project and modified to work here lol */
 body {
     background-color: #ffffff;
     font-family: Georgia, serif;
@@ -11,7 +11,15 @@ footer {
     padding: 1em;
     background-color: #000000;
     color: #fff;
-    position: bottom;
     width: 100%;
-    bottom: 0;
+    box-sizing: border-box;
 }
+
+footer a {
+    color: #fff; /* Ensures the link is the same color as the footer text */
+    text-decoration: none; /* Removes underline from the link */
+    display: block; /* Makes the link a block element to occupy its own line */
+    margin-top: 0.5em; /* Adds some space between the copyright text and the link */
+}
+
+
