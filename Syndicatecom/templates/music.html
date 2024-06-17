@@ -4,6 +4,8 @@
     {% load static %}
     <link rel="stylesheet" href="{% static 'style.css' %}">
     <title>Music</title>
+    <!-- Include Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         .band-header {
             background-image: url('{% static "fullbandawning_bw.jpg" %}');
@@ -17,19 +19,204 @@
             color: white;
             text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
         }
-
-        .band-title {
+        
+        .music-title {
             font-size: 3em;
             margin: 0;
         }
+
+        .album-container {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            justify-items: center;
+            margin-top: 20px;
+            padding: 0 200px; /* Add padding to the sides */
+        }
+
+        .album {
+            text-align: center;
+        }
+
+        .album img {
+            width: 200px;
+            height: 200px;
+            cursor: pointer;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.4);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 500px;
+            text-align: center; /* Center text content */
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .modal-content img {
+            margin: 20px 0;
+        }
+
+        .streaming-icons a {
+            margin: 0 10px;
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .streaming-icons a:hover {
+            color: #000;
+        }
+
+        .no-albums {
+            font-size: 1.5em;
+            color: #333;
+            margin-top: 20px;
+            text-align: center;
+            grid-column: span 4; /* Span across all columns */
+        }
+
+        @media (max-width: 1024px) {
+            .album-container {
+                grid-template-columns: repeat(3, 1fr);
+                padding: 0 100px; /* Adjust padding for smaller screens */
+            }
+
+            .no-albums {
+                grid-column: span 3; /* Adjust span for smaller screens */
+            }
+        }
+
+        @media (max-width: 768px) {
+            .album-container {
+                grid-template-columns: repeat(2, 1fr);
+                padding: 0 50px; /* Adjust padding for smaller screens */
+            }
+
+            .no-albums {
+                grid-column: span 2; /* Adjust span for smaller screens */
+            }
+        }
+
+        @media (max-width: 480px) {
+            .album-container {
+                grid-template-columns: 1fr;
+                padding: 0 20px; /* Adjust padding for smaller screens */
+            }
+
+            .no-albums {
+                grid-column: span 1; /* Adjust span for smaller screens */
+            }
+        }
     </style>
 </head>
+
 <body>
     {% include 'navbar.html' %}
     <div class="band-header">
-        <h1 class="band-title">Music</h1>
+        <h1 class="music-title">Music</h1>
     </div>
-    
-{% include 'footer.html' %}
-</body>
+
+    <div class="album-container">
+        {% if albums %}
+            {% for album in albums %}
+            <div class="album">
+                <img src="{{ album.cover_url.url }}" alt="{{ album.name }}" onclick="openModal('{{ album.id }}')">
+                <p>{{ album.name }}</p>
+            </div>
+            {% endfor %}
+        {% else %}
+            <p class="no-albums">We're currently working on our debut record! Follow our Instagram @syndicate.fl for updates</p>
+        {% endif %}
+    </div>
+
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div id="modal-content-details">
+                <!-- Album details will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('myModal').style.display = 'none';
+        });
+
+        function openModal(albumId) {
+            console.log("Opening modal for album ID: ", albumId); // Debugging line
+
+            // Fetch album details using AJAX or preloaded data
+            fetch(`/album-details/${albumId}/`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok ' + response.statusText);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log("Fetched Data: ", data);  // Debugging line
+                    document.getElementById('modal-content-details').innerHTML = `
+                        <h2>${data.name}</h2>
+                        <img src="${data.cover_url}" alt="${data.name}" style="width: 200px;">
+                        <div class="streaming-icons">
+                            <a href="${data.spotify_url}" target="_blank"><i class="fab fa-spotify fa-2x"></i></a>
+                            <a href="${data.apple_music_url}" target="_blank"><i class="fab fa-apple fa-2x"></i></a>
+                            <a href="${data.youtube_url}" target="_blank"><i class="fab fa-youtube fa-2x"></i></a>
+                        </div>
+                        <p>Released on ${data.release_date}</p>
+                        <p>Recorded at ${data.recorded_at}</p>
+                        <p>Credits: ${data.credits}</p>
+                    `;
+                    document.getElementById('myModal').style.display = "flex";
+                })
+                .catch(error => {
+                    console.error('Fetch error: ', error);
+                });
+        }
+
+        var modal = document.getElementById("myModal");
+        var span = document.getElementsByClassName("close")[0];
+
+        span.onclick = function() {
+            modal.style.display = "none";
+        }
+
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    </script>
+    {% include 'footer.html' %}
+</body>    
 </html>

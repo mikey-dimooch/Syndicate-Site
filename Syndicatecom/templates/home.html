@@ -1,64 +1,202 @@
 <!DOCTYPE html>
 <html lang="en">
-{% include 'navbar.html' %} 
+{% include 'navbar.html' %}
 {% load static %}
-<link rel="stylesheet" href="{% static 'style.css' %}"> 
-<style>
-    .main-content {
-        display: flex;
-        flex-direction: column; /* Stack images vertically */
-        align-items: center; /* Center images horizontally */
-        gap: 1em; /* Add vertical space between images */
-        padding: 2em; /* Padding around the content */
-    }
-
-    .top-image {
-        width: 40%; /* Smaller width for the top image */
-        max-width: 100%; /* Ensure the image doesn't exceed its container */
-        height: auto; /* Maintain the aspect ratio */
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional shadow */
-        border-radius: 8px; /* Optional: Round corners */
-    }
-
-    .caption {
-        font-size: 1.2em; /* Adjust the font size as needed */
-        text-align: center; /* Center-align the text */
-        color: #333; /* Change to a suitable color */
-        margin: 0.5em 0; /* Adjust the margin for spacing */
-    }
-
-    .bottom-image {
-        width: 75%; /* Larger width for the bottom image */
-        max-width: 100%; /* Ensure the image doesn't exceed its container */
-        height: auto; /* Maintain the aspect ratio */
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional shadow */
-        border-radius: 8px; /* Optional: Round corners */
-    }
-
-    /* Media query to adjust images for smaller screens */
-    @media (max-width: 768px) {
-        .large-image {
-            width: 100%; /* Full width on smaller screens */
-        }
-    }
-</style>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Syndicate</title>
-    
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        .home-header {
+            background-image: url('{% static 'fullbandawningins_bw.jpg' %}');
+            background-size: cover;
+            background-position: center;
+            height: 450px;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
+        }
+
+        .main-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1em;
+            padding: 2em 200px; /* Padding around the content with 200px on sides */
+        }
+
+        .caption {
+            font-size: 1.2em;
+            text-align: center;
+            color: #333;
+            margin: 0.5em 0;
+        }
+
+        .social-icons {
+            margin: 1em 0;
+            display: flex;
+            justify-content: center;
+            gap: 1em;
+        }
+
+        .social-icons a {
+            color: #333;
+            font-size: 2em; /* Increased font size */
+            transition: color 0.3s;
+        }
+
+        .social-icons a:hover {
+            color: #e60023; /* Red color on hover */
+        }
+
+        .gallery-header {
+            font-size: 2em;
+            text-align: center;
+            color: #333;
+            margin: 1em 0;
+            position: relative;
+            width: 100%;
+        }
+
+        .gallery-header:before, .gallery-header:after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            width: 40%;
+            height: 2px;
+            background-color: #333;
+        }
+
+        .gallery-header:before {
+            left: 0;
+        }
+
+        .gallery-header:after {
+            right: 0;
+        }
+
+        .gallery {
+            column-count: 3;
+            column-gap: 10px;
+            width: 100%;
+        }
+
+        .gallery-item {
+            break-inside: avoid;
+            margin-bottom: 10px;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px; /* Optional: add border radius for better appearance */
+        }
+
+        .gallery-caption {
+            font-size: 1em;
+            text-align: center;
+            color: #666;
+            margin-top: 0.5em;
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+
+        .show-more {
+            display: none;
+            cursor: pointer;
+            padding: 10px 20px;
+            font-size: 1em;
+            color: white;
+            background-color: #333;
+            border: none;
+            border-radius: 5px;
+            margin: 20px auto;
+        }
+
+        @media (max-width: 768px) {
+            .main-content {
+                padding: 2em 20px; /* Reduced padding for smaller screens */
+            }
+            .gallery {
+                column-count: 1; /* One column on smaller screens */
+            }
+            .gallery-header:before, .gallery-header:after {
+                width: 20%;
+            }
+        }
+    </style>
 </head>
 
 <body>
-    <div class="main-content">
-        <img class="top-image" src="{% static 'logo_red.PNG' %}" alt="Red Syndicate Logo">
-    
-        <p class="caption">Classic-era inspired Thrash Metal from Tampa, Florida. Est. 2024</p>
-    
-        <img class="bottom-image" src="{% static 'fullbandfactory_color.jpg' %}" alt="Full Band Photo Color">
+    <div class="home-header">
+        <img src="{% static 'logo_red.PNG' %}" alt="Syndicate Logo" style="max-height: 70%; max-width: 70%;">
     </div>
-    
-    {% include 'footer.html' %}
-</body>
 
+    <div class="main-content">
+        <p class="caption">Classic-era inspired Thrash Metal from Tampa, Florida. Est. 2024</p>
+        
+        <div class="social-icons">
+            <a href="https://www.instagram.com/syndicate.fl/" target="_blank"><i class="fab fa-instagram"></i></a>
+            <a href="https://www.youtube.com/yourchannel" target="_blank"><i class="fab fa-youtube"></i></a>
+            <a href="https://www.tiktok.com/@yourprofile" target="_blank"><i class="fab fa-tiktok"></i></a>
+            <a href="https://www.facebook.com/yourpage" target="_blank"><i class="fab fa-facebook"></i></a>
+            <a href="https://open.spotify.com/artist/yourprofile" target="_blank"><i class="fab fa-spotify"></i></a>
+        </div>
+
+        <h2 class="gallery-header">Photos</h2>
+
+        <div id="gallery" class="gallery">
+            {% for image in gallery_images %}
+            <div class="gallery-item">
+                <img src="{{ image.image.url }}" alt="{{ image.caption }}">
+                <p class="gallery-caption">{{ image.caption }}</p>
+            </div>
+            {% endfor %}
+        </div>
+
+        <button id="show-more" class="show-more" onclick="showMore()">Show More</button>
+    </div>
+
+    <script>
+        const showMore = () => {
+            const gallery = document.getElementById('gallery');
+            const showMoreButton = document.getElementById('show-more');
+            const hiddenItems = gallery.querySelectorAll('.gallery-item.hidden');
+            hiddenItems.forEach((item, index) => {
+                if (index < 21) { // Show 21 more items
+                    item.classList.remove('hidden');
+                }
+            });
+            if (gallery.querySelectorAll('.gallery-item.hidden').length === 0) {
+                showMoreButton.style.display = 'none';
+            }
+        };
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const gallery = document.getElementById('gallery');
+            const showMoreButton = document.getElementById('show-more');
+            const items = gallery.querySelectorAll('.gallery-item');
+            items.forEach((item, index) => {
+                if (index >= 21) { // Initially show only the first 21 items
+                    item.classList.add('hidden');
+                }
+            });
+            if (items.length > 21) {
+                showMoreButton.style.display = 'block';
+            }
+        });
+    </script>
+{% include 'footer.html' %}
+</body>
 </html>

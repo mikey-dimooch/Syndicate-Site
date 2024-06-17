@@ -4,11 +4,14 @@ from django.utils import timezone
 from django.core.mail import send_mail
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
-from .models import Album  # Ensure you're importing the Album model correctly
+from django.core.paginator import Paginator
+from .models import GalleryImage
+from .models import Album
 
 # Create your views here.
 def home(request):
-    return render(request, "home.html")
+    gallery_images = GalleryImage.objects.all()
+    return render(request, 'home.html', {'gallery_images': gallery_images})
 
 def tour(request):
     return render(request, 'tour.html')
@@ -17,8 +20,7 @@ def band(request):
     return render(request, 'band.html')
 
 def music(request):
-    albums = Album.objects.all()  # This retrieves all album entries from the database
-    return render(request, 'music.html', {'albums': albums})
+    return render(request, 'music.html')
 
 def merch(request):
     return render(request, 'merch.html')
@@ -54,13 +56,27 @@ def tour(request):
         'past_shows': past_shows
     })
 
-def album_details(request, id):
-    album = get_object_or_404(Album, id=id)
-    return JsonResponse({
-        'title': album.title,
-        'release_date': album.release_date.strftime('%Y-%m-%d'),
-        'spotify_link': album.spotify_link,
-        'apple_music_link': album.apple_music_link,
-        'youtube_link': album.youtube_link,
+
+def music(request):
+    albums = Album.objects.all()
+    return render(request, 'music.html', {'albums': albums})
+
+def album_details(request, album_id):
+    album = get_object_or_404(Album, id=album_id)
+    try:
+        release_date = album.release_date.strftime('%B %d, %Y') if album.release_date else 'N/A'
+    except Exception as e:
+        release_date = 'Error: ' + str(e)
+    
+    data = {
+        'name': album.name,
+        'cover_url': album.cover_url.url,
+        'recorded_at': album.recorded_at,
         'credits': album.credits,
-    })
+        'spotify_url': album.spotify_url,
+        'apple_music_url': album.apple_music_url,
+        'youtube_url': album.youtube_url,
+        'release_date': release_date,
+    }
+    return JsonResponse(data)
+

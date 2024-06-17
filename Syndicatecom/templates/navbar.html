@@ -18,6 +18,11 @@
         color: #fff;
         text-decoration: none;
         margin: 0 1em;
+        transition: color 0.3s; /* Smooth transition for hover effect */
+    }
+
+    nav a:hover {
+        color: #e60023; /* Red color on hover */
     }
 
     .navbar-logo {
@@ -26,6 +31,7 @@
         margin-right: 1em; /* Space between the logo and other links */
     }
 </style>
+
 <nav>
     <div class="nav-left">
         <a href="{% url 'home' %}">
