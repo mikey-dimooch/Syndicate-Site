@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
-{% include 'navbar.html' %}
-{% load static %}
 <head>
+    {% load static %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Syndicate</title>
@@ -10,7 +9,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         .home-header {
-            background-image: url('{% static 'fullbandawningins_bw.jpg' %}');
+            background-image: url('{% static "fullbandawningins_bw.jpg" %}');
             background-size: cover;
             background-position: center;
             height: 450px;
@@ -27,7 +26,7 @@
             flex-direction: column;
             align-items: center;
             gap: 1em;
-            padding: 2em 200px; /* Padding around the content with 200px on sides */
+            padding: 2em 200px;
         }
 
         .caption {
@@ -46,12 +45,12 @@
 
         .social-icons a {
             color: #333;
-            font-size: 2em; /* Increased font size */
+            font-size: 2em;
             transition: color 0.3s;
         }
 
         .social-icons a:hover {
-            color: #e60023; /* Red color on hover */
+            color: #e60023;
         }
 
         .gallery-header {
@@ -89,12 +88,13 @@
         .gallery-item {
             break-inside: avoid;
             margin-bottom: 10px;
+            position: relative;
         }
 
         .gallery-item img {
             width: 100%;
             height: auto;
-            border-radius: 8px; /* Optional: add border radius for better appearance */
+            border-radius: 8px;
         }
 
         .gallery-caption {
@@ -112,6 +112,10 @@
             border-radius: 5px;
         }
 
+        .hidden {
+            display: none;
+        }
+
         .show-more {
             display: none;
             cursor: pointer;
@@ -124,21 +128,52 @@
             margin: 20px auto;
         }
 
+        @media (max-width: 1200px) {
+            .main-content {
+                padding: 2em 100px;
+            }
+        }
+
         @media (max-width: 768px) {
             .main-content {
-                padding: 2em 20px; /* Reduced padding for smaller screens */
+                padding: 2em 20px;
             }
             .gallery {
-                column-count: 1; /* One column on smaller screens */
+                column-count: 1;
             }
             .gallery-header:before, .gallery-header:after {
                 width: 20%;
+            }
+            .social-icons a {
+                font-size: 1.5em;
+            }
+            .caption {
+                font-size: 1em;
+            }
+            .gallery-header {
+                font-size: 1.5em;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .home-header {
+                height: 300px;
+            }
+            .social-icons a {
+                font-size: 1.2em;
+            }
+            .caption {
+                font-size: 0.9em;
+            }
+            .gallery-header {
+                font-size: 1.2em;
             }
         }
     </style>
 </head>
 
 <body>
+    {% include 'navbar.html' %}
     <div class="home-header">
         <img src="{% static 'logo_red.PNG' %}" alt="Syndicate Logo" style="max-height: 70%; max-width: 70%;">
     </div>
@@ -174,7 +209,7 @@
             const showMoreButton = document.getElementById('show-more');
             const hiddenItems = gallery.querySelectorAll('.gallery-item.hidden');
             hiddenItems.forEach((item, index) => {
-                if (index < 21) { // Show 21 more items
+                if (index < 21) {
                     item.classList.remove('hidden');
                 }
             });
@@ -188,7 +223,7 @@
             const showMoreButton = document.getElementById('show-more');
             const items = gallery.querySelectorAll('.gallery-item');
             items.forEach((item, index) => {
-                if (index >= 21) { // Initially show only the first 21 items
+                if (index >= 21) {
                     item.classList.add('hidden');
                 }
             });
@@ -197,6 +232,6 @@
             }
         });
     </script>
-{% include 'footer.html' %}
+    {% include 'footer.html' %}
 </body>
 </html>

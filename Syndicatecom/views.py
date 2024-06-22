@@ -13,40 +13,6 @@ def home(request):
     gallery_images = GalleryImage.objects.all()
     return render(request, 'home.html', {'gallery_images': gallery_images})
 
-def tour(request):
-    return render(request, 'tour.html')
-
-def band(request):
-    return render(request, 'band.html')
-
-def music(request):
-    return render(request, 'music.html')
-
-def merch(request):
-    return render(request, 'merch.html')
-
-def contact(request):
-    if request.method == "POST":
-        name = request.POST['name']
-        email = request.POST['email']
-        message = request.POST['message']
-
-        # Construct the email body
-        email_body = f"Message from {name} ({email}):\n\n{message}"
-
-        # send an email
-        send_mail(
-            'New Message From ' + name, # subject
-            email_body, # message
-            email, # from email (who's filling out the form)
-            ['syndicatethrash@gmail.com'], # to email (band email)
-        )
-
-
-        return render(request, 'contact.html', {'name':name})
-    else:
-        return render(request, 'contact.html')
-
 
 def tour(request):
     upcoming_shows = Show.objects.filter(date__gte=timezone.now()).order_by('date')
@@ -56,6 +22,9 @@ def tour(request):
         'past_shows': past_shows
     })
 
+
+def band(request):
+    return render(request, 'band.html')
 
 def music(request):
     albums = Album.objects.all()
@@ -80,3 +49,26 @@ def album_details(request, album_id):
     }
     return JsonResponse(data)
 
+def merch(request):
+    return render(request, 'merch.html')
+
+def contact(request):
+    if request.method == "POST":
+        name = request.POST.get('name')
+        email = request.POST.get('email')
+        message = request.POST.get('message')
+
+        # Construct the email body
+        email_body = f"Message from {name} ({email}):\n\n{message}"
+
+        # Send an email
+        send_mail(
+            'New Message From ' + name,  # subject
+            email_body,  # message
+            email,  # from email (who's filling out the form)
+            ['syndicatethrash@gmail.com'],  # to email (band email)
+        )
+
+        return render(request, 'contact.html', {'name': name})
+    else:
+        return render(request, 'contact.html')

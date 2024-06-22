@@ -78,12 +78,20 @@
     
         /* Responsive adjustments */
         @media (max-width: 768px) {
-            .shows-container {
-                flex-direction: column;
+            .tour-header {
+                height: 300px; /* Adjust height for mobile */
             }
-    
+
+            .tour-title {
+                font-size: 2em; /* Smaller font size for mobile */
+            }
+
             .upcoming-shows, .past-shows {
                 width: 95%;
+            }
+
+            .shows-container {
+                flex-direction: column;
             }
         }
     </style>
@@ -119,7 +127,7 @@
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
-                                <div class::="modal-body">
+                                <div class="modal-body">
                                     <p> {{ show.date|date:"M d, Y @ g:i A" }}</p>
                                     <p> {{ show.venue }}, {{ show.city }}, {{ show.state }}</p>
                                     <p> {{ show.description }}</p>
@@ -149,7 +157,7 @@
                 {% for show in past_shows %}
                     <div class="show-item">
                         <p>{{ show.date|date:"M d, Y" }} - {{ show.event_name }}, {{ show.city }}</p>
-                        <button type="button" data-toggle="modal" data-target="#setlistModal{{ show.id }}">View Setlist</button>
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#setlistModal{{ show.id }}">View Setlist</button>
                         
                         <!-- Setlist Modal -->
                         <div class="modal fade" id="setlistModal{{ show.id }}" tabindex="-1" role="dialog" aria-labelledby="setlistModalLabel{{ show.id }}" aria-hidden="true">
