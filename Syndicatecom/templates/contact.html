@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-{% include 'navbar.html' %}
 {% load static %}
 <head>
     <meta charset="UTF-8">
@@ -89,6 +88,7 @@
             border-radius: 5px;
             margin-bottom: 20px;
         }
+
         /* New style for hiding the form when submitted */
         .hidden {
             display: none;
@@ -97,17 +97,19 @@
 </head>
 
 <body>
+    {% include 'navbar.html' %}
+
     <div class="band-header">
         <h1 class="band-title">Contact</h1>
     </div>
+
     {% if name %}
-        <center>
-            <h2>
-                Thank you {{ name }}!
+        <div class="main-content">
+            <center>
+                <h2>Thank you {{ name }}!</h2>
                 <p>We got your email and we'll be in touch shortly!</p>
-            </h2>
-        </center>
-        <br><br>
+            </center>
+        </div>
     {% else %}
         <div class="main-content">
             <div class="form-container" id="contact-form">
@@ -132,13 +134,13 @@
             </div>
         </div>
     {% endif %}
+
     {% include 'footer.html' %}
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             var contactForm = document.getElementById('contactForm');
             contactForm.addEventListener('submit', function(event) {
-                event.preventDefault(); // Prevent the form from submitting normally
                 var form = document.getElementById('contact-form');
                 form.classList.add('hidden'); // Hide the form
             });

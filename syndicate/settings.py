@@ -12,10 +12,17 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 
 from pathlib import Path
 import os
+import django_heroku
+import dj_database_url
+
+
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_URL = '/static/'
+
 
 
 # Quick-start development settings - unsuitable for production
@@ -27,7 +34,7 @@ SECRET_KEY = 'django-insecure--$0=%p5zp#pw=#06p8n@zc0(unnqc#&pwq+9hyi((&=63q6a4t
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['syndicate-site.herokuapp.com', '127.0.0.1','syndicatethrash.com']
 
 # Application definition
 
@@ -76,11 +83,12 @@ WSGI_APPLICATION = 'syndicate.wsgi.application'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    'default': dj_database_url.config(
+        default='postgres://yourdefaultdatabaseurl'
+    )
 }
+
+django_heroku.settings(locals())
 
 # Media
 MEDIA_URL = '/media/'
@@ -115,18 +123,6 @@ TIME_ZONE = 'EST'
 USE_I18N = True
 
 USE_TZ = True
-
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/5.0/howto/static-files/
-
-STATIC_URL = '/static/'
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static'),
-]
-
-
-
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
