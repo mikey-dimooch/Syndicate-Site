@@ -31,7 +31,7 @@ STATIC_URL = '/static/'
 SECRET_KEY = 'django-insecure--$0=%p5zp#pw=#06p8n@zc0(unnqc#&pwq+9hyi((&=63q6a4t'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['syndicate-site.herokuapp.com', '127.0.0.1','syndicatethrash.com']
 
@@ -82,9 +82,10 @@ WSGI_APPLICATION = 'syndicate.wsgi.application'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
 DATABASES = {
-
-    'default': dj_database_url.config(conn_max_age=600, ssl_require=True)
-
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
 }
 
 django_heroku.settings(locals())
