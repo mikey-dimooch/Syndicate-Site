@@ -17,7 +17,6 @@ import dj_database_url
 
 
 
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
@@ -83,9 +82,9 @@ WSGI_APPLICATION = 'syndicate.wsgi.application'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
 DATABASES = {
-    'default': dj_database_url.config(
-        default='postgres://yourdefaultdatabaseurl'
-    )
+
+    'default': dj_database_url.config(conn_max_age=600, ssl_require=True)
+
 }
 
 django_heroku.settings(locals())
