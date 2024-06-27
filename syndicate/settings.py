@@ -37,7 +37,7 @@ SECRET_KEY = 'django-insecure--$0=%p5zp#pw=#06p8n@zc0(unnqc#&pwq+9hyi((&=63q6a4t
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['syndicate-site.herokuapp.com', '127.0.0.1','syndicatethrash.com']
+ALLOWED_HOSTS = ['syndicate-site.herokuapp.com', '127.0.0.1','syndicatethrash.com', 'cfehome.herokuapp.com']
 
 # Application definition
 
@@ -95,6 +95,8 @@ DATABASES = {
     }
 }
 
+db_from_env = dj_database_url.config()
+DATABASES['default'].update(db_from_env)
 django_heroku.settings(locals())
 
 
