@@ -31,13 +31,6 @@ STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 
 STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 
-DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-AWS_ACCESS_KEY_ID = 'syndicate'
-AWS_SECRET_ACCESS_KEY = 'oxE+F5Ori4/xBdhK/QDAY1G8LuXZFhqa0+Aj8xn5'
-AWS_STORAGE_BUCKET_NAME = 'syndicate-thrash-bucket'
-AWS_S3_FILE_OVERWRITE = False
-AWS_DEFAULT_ACL = None
-
 
 # Media files (Uploaded images, files)
 MEDIA_URL = '/media/'
